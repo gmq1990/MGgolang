@@ -17,7 +17,8 @@ func bBytes() {
 	bs := []byte(s)               // string abc
 	fmt.Printf("%T %v\n", bs, bs) // []uint8 [97 98 99]
 
-	fmt.Println(bytes.Compare([]byte("abc"), []byte("def")))        // -1
-	fmt.Println(bytes.Index([]byte("abcdefabc"), []byte("def")))    // 3
-	fmt.Println(bytes.Contains([]byte("abcdefabc"), []byte("def"))) // true
+	fmt.Println(bytes.Compare([]byte("abc"), []byte("def")))         // -1
+	fmt.Println(bytes.Index([]byte("abcdefabc"), []byte("def")))     // 3
+	fmt.Println(bytes.Contains([]byte("abcdefabc"), []byte("defd"))) // false
+
 }

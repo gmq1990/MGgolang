@@ -8,6 +8,8 @@ func main() {
 	// mMap()
 	// stats()
 	// sStrings()
-	bBytes()
+	// bBytes()
+	// utf_8()
+	strConvert()
 
 }

@@ -6,6 +6,8 @@ func main() {
 	// slice()
 	// sSort()
 	// mMap()
-	stats()
+	// stats()
+	// sStrings()
+	bBytes()
 
 }

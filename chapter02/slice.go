@@ -140,4 +140,17 @@ func slice() {
 	fmt.Println(points[0])
 	fmt.Println(points[0][1])
 
+	// 数组和切片的区别：
+	// 数组本身已经是一个固定的值类型
+	slice1 := []int{1, 2, 3}
+	// slice2 拷贝了 slice1 的指针、长度、容量
+	slice2 := slice1
+	slice2[0] = 10
+	fmt.Println(slice1, slice2) // [10 2 3] [10 2 3]
+
+	array1 := [3]int{1, 2, 3}
+	// array1 开辟新的内存空间 ，拷贝了 array1 的值
+	array2 := array1
+	array2[0] = 10
+	fmt.Println(array1, array2) // [1 2 3] [10 2 3]
 }

@@ -3,6 +3,9 @@ package main
 func main() {
 	// arrays()
 	// marrays()
-	slice()
+	// slice()
+	// sSort()
+	// mMap()
+	stats()
 
 }

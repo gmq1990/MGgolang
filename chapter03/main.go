@@ -11,5 +11,11 @@ func main() {
 	// recursion()
 	// tower_hanoi()
 	// tType()
-	closures()
+	// closures()
+	// valueref()
+	// funcvalue()\
+	// err()
+	// defers()
+	// panics()
+	users()
 }

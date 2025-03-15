@@ -19,10 +19,12 @@ func closures() {
 	// 匿名函数中return的函数，引用了外部作用域里的变量
 
 	// 定义一个函数，传入一个基本值，返回一个函数。
+	// addBase为创造函数的函数（外部函数）
 	// 返回的函数与上面的addN函数一样
 	addBase := func(base int) func(int) int {
-		// 下面的函数中，base+n引用了closure()里的变量base，形成闭包
-		// 这个base变量，被匿名函数引用后，就一直存在，直到closures()结束
+		// 被return的函数为内部函数
+		// 内部函数调用了addBase里的形参base，形成闭包
+		// 这个base变量，就和内部函数赋值给某个变量后的生命周期一致了（后面的add2，add10，add100）
 		return func(n int) int {
 			return base + n
 		}
@@ -43,6 +45,5 @@ func closures() {
 	fmt.Printf("%T\n", add8) // func(int) int
 	fmt.Println(add8(10))    // 18
 
-	// addBase函数仍然在，base就一直在
-	// END: closures()函数结束时，才会销毁base
+	// add2，add10，add100存在，addBase的参数就一直在
 }

@@ -9,10 +9,13 @@ import (
 	// 点导入
 	// 别名导入（另外命名，解决包名冲突），常用
 	"go-study/MGgolang/chapter04/gopkg"
+	// 进行包初始化
 	_ "go-study/MGgolang/chapter04/gopkg"
 
 	"github.com/howeyc/gopass"
 )
+
+// main是用来声明本包为可执行程序，一个包下只能有一个main函数
 
 func main() {
 	// 调用gopkg包的VERSION常量

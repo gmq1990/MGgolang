@@ -10,6 +10,7 @@ func PrintName() { // 包外可见。首字母大写
 	fmt.Println(name)
 }
 
+// 被其他地方import时，进行初始化
 func init() {
 	fmt.Println("init")
 }

@@ -22,7 +22,7 @@ type Company1 struct {
 }
 
 type Employee1 struct {
-	// 指针型匿名嵌入
+	// 匿名嵌入：结构体指针
 	*User6
 	Salary float64
 	Name   string

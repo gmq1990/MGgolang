@@ -10,5 +10,11 @@ func main() {
 	// acombine()
 	// pacombine()
 	// vars()
-	pvars()
+	// pvars()
+	// method()
+	// mcombin()
+	// macombin()
+	// methodtype()
+	// methodtypeV2()
+	methodexp()
 }

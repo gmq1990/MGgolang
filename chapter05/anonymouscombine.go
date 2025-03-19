@@ -53,7 +53,7 @@ func anonymouscombine() {
 
 	// 匿名结构体：在访问其属性时，可以省略结构名
 	// 属性名冲突：以me02为优先，没有Name时，才访问User4里面的Name
-	// 多个匿名结构体时，不能简写
+	// 多个匿名结构体的内部元素冲突时，不能简写
 	// fmt.Println(me02.Name)
 	// me02.Addr.No = "321"      // User4被省略
 	// fmt.Println(me02.Addr.No) // User4被省略

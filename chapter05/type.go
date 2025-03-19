@@ -2,9 +2,10 @@ package main
 
 import "fmt"
 
-// 自定义类型
+// type：自定义类型
 // 定义成自己需要的格式
 // 相当于在基础库的类型基础上构建新的类型
+// type可配置类型：基础类型、func签名、struct、interface
 type Counter int
 
 type User map[string]string

@@ -14,7 +14,7 @@ type User8 struct {
 	Addr *Address5 // 指针型嵌入
 }
 
-// go需要定义一个函数，来模拟构造函数
+// go需要定义一个函数，来模拟其他语言的构造函数
 func NewUser(id int, name string, region, street, num string) *User8 {
 	return &User8{
 		ID:   id,

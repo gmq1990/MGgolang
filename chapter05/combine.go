@@ -3,12 +3,14 @@ package main
 import "fmt"
 
 type Address struct {
+	// 命名嵌入
 	Region string
 	Street string
 	No     string
 }
 
 type User3 struct {
+	// 命名嵌入
 	ID   int
 	Name string
 	Addr *Address

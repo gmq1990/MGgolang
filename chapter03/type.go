@@ -7,6 +7,7 @@ func add2(a, b int) int {
 }
 
 // 格式化，将传递的数据按照每行打印，或按照一行按 | 分割
+// 函数作为参数
 func print(callback func(...string), args ...string) {
 	fmt.Println("print函数输出：")
 
@@ -35,7 +36,7 @@ func tType() {
 	print(list, "A", "C", "E")
 
 	// 匿名函数
-	// 函数内部定义一个只在函数内使用的函数
+	// 函数内部定义一个只在函数内使用的函数，赋值给一个变量
 	sayHello := func(name string) {
 		fmt.Println("Hello", name)
 	}
@@ -43,7 +44,7 @@ func tType() {
 	sayHello("KK")
 	sayHello("tom")
 
-	// 匿名：只使用一次的函数
+	// 匿名函数：只使用一次的函数
 	func(name string) {
 		fmt.Println("Hi", name)
 	}("KK")

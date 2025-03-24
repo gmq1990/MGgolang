@@ -179,3 +179,11 @@ attrName 包外不可见
    文件的内容末尾添加新内容
 ```
 
+```
+os.openfile <--> 磁盘
+strings.Reader/Writer/Builder <--> 内存
+bufio ：以上2者的扩展
+
+
+```
+

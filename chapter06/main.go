@@ -24,5 +24,9 @@ func main() {
 	// gobencode()
 	// gobdecode()
 	// csvwriter()
-	csvreader()
+	// csvreader()
+	// sStrings()
+	// bBytes()
+	// md5Sum()
+	md5SumV2()
 }

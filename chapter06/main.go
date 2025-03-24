@@ -1,0 +1,28 @@
+package main
+
+func main() {
+	// readfile()
+	// writefile()
+	// appendfile()
+	// lLog()
+	// sSeek()
+	// readall()
+	// readfileV2()
+	// writefileV2()
+	// sScanner()
+	// rReader()
+	// rReadLine()
+	// rReadLineV2()
+	// wWriter()
+	// copyfile()
+	// file()
+	// dir()
+	// fileinfo()
+	// sysdir()
+	// filePath()
+	// osstd()
+	// gobencode()
+	// gobdecode()
+	// csvwriter()
+	csvreader()
+}

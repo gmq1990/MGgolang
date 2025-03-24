@@ -16,5 +16,6 @@ func main() {
 	// macombin()
 	// methodtype()
 	// methodtypeV2()
-	methodexp()
+	// methodexp()
+	sSort()
 }

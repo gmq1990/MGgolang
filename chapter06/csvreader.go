@@ -8,6 +8,7 @@ import (
 )
 
 func csvreader() {
+	// 读取csv文件的内容
 	file, err := os.Open("user.csv")
 	if err == nil {
 		defer file.Close()

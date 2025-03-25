@@ -36,10 +36,10 @@ func fileinfo() {
 				if err == nil {
 					defer dirFile.Close()
 					// 获取所有子路径
-					// children, _ := dirFile.Readdir(-1)
-					// for _, child := range children {
-					// 	fmt.Println(child.Name(), child.IsDir(), child.Size(), child.ModTime())
-					// }
+					children, _ := dirFile.Readdir(-1)
+					for _, child := range children {
+						fmt.Println(child.Name(), child.IsDir(), child.Size(), child.ModTime())
+					}
 
 					// 获取所有子路径名
 					names, _ := dirFile.Readdirnames(-1)

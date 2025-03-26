@@ -1,14 +1,11 @@
 package users
 
 import (
-	"bufio"
 	"crypto/md5"
-	"encoding/csv"
+	"encoding/gob"
 	"errors"
 	"fmt"
-	"io"
 	"os"
-	"path/filepath"
 	"sort"
 	"strconv"
 	"strings"
@@ -20,7 +17,7 @@ import (
 const (
 	MaxAuth      = 3
 	passwordFile = "password"
-	userFile     = "users.csv"
+	userFile     = "users.gob"
 )
 
 type User struct {
@@ -36,31 +33,14 @@ func (u User) String() string {
 	return fmt.Sprintf("ID: %d\n名字: %s\n出生日期: %s\n联系方式: %s\n联系地址: %s\n备注: %s\n", u.ID, u.Name, u.Birthday.Format("2006-01-02"), u.Tel, u.Addr, u.Desc)
 }
 
-// 从文件读取
 func loadUser() map[int]User {
 	users := map[int]User{}
 	if file, err := os.Open(userFile); err == nil {
 		defer file.Close()
-		reader := csv.NewReader(file)
-		for {
-			line, err := reader.Read()
-			if err != nil {
-				if err != io.EOF {
-					fmt.Println("[-]发生错误:", err)
-				}
-				break
-			}
-
-			id, _ := strconv.Atoi(line[0])
-			birthday, _ := time.Parse("2006-01-02", line[2])
-			users[id] = User{
-				ID:       id,
-				Name:     line[1],
-				Birthday: birthday,
-				Tel:      line[3],
-				Addr:     line[4],
-				Desc:     line[5],
-			}
+		decoder := gob.NewDecoder(file)
+		err := decoder.Decode(&users)
+		if err != nil {
+			fmt.Println(err)
 		}
 	} else {
 		if !os.IsNotExist(err) {
@@ -70,50 +50,18 @@ func loadUser() map[int]User {
 	return users
 }
 
-// 持久化到文件
 func storeUser(users map[int]User) {
-	// 重命名文件
-	if _, err := os.Stat(userFile); err == nil {
-		// os.Rename(userFile, fmt.Sprintf("%d", time.Now().Unix()))
-		// os.Rename(userFile,time.Now().Format("2006-01-02 15:04:05"))
-		os.Rename(userFile, strconv.FormatInt(time.Now().Unix(), 10)+".user.csv")
-	}
-
-	if names, err := filepath.Glob("*.user.csv"); err == nil {
-		fmt.Println(names)
-		// 按降序排序
-		sort.Sort(sort.Reverse(sort.StringSlice(names)))
-		fmt.Println(names)
-		// 删除旧文件，保留3个最近的
-		if len(names) > 3 {
-			for _, name := range names[3:] {
-				if err := os.Remove(name); err != nil {
-					fmt.Printf("删除文件 %s 时出错: %v\n", name, err)
-				}
-			}
-		}
-	}
-
 	if file, err := os.Create(userFile); err == nil {
 		defer file.Close()
-		writer := csv.NewWriter(file)
-		for _, user := range users {
-			writer.Write([]string{
-				strconv.Itoa(user.ID),
-				user.Name,
-				user.Birthday.Format("2006-01-02"),
-				user.Tel,
-				user.Addr,
-				user.Desc,
-			})
-		}
-		writer.Flush()
+		encoder := gob.NewEncoder(file)
+		encoder.Encode(&users)
 	}
 }
 
 // 从命令行输入密码，并验证
 // 用返回值告知验证结果
 func Auth() bool {
+
 	password, err := os.ReadFile(passwordFile)
 	if err == nil && len(password) > 0 {
 		// 验证密码
@@ -128,6 +76,7 @@ func Auth() bool {
 				fmt.Println("[-]密码错误")
 			}
 		}
+
 		return false
 	} else {
 		if os.IsNotExist(err) || len(password) == 0 {
@@ -143,14 +92,14 @@ func Auth() bool {
 			return false
 		}
 	}
+
 }
 
 func InputStr(prompt string) string {
+	var input string
 	fmt.Print(prompt)
-	// 带缓冲io，防止一行输入被多个命令行读取
-	scanner := bufio.NewScanner(os.Stdin)
-	scanner.Scan()
-	return strings.TrimSpace(scanner.Text())
+	fmt.Scan(&input)
+	return strings.TrimSpace(input)
 }
 
 func getId() int {
@@ -262,6 +211,7 @@ func Query() {
 	keyword := InputStr("请输入关键字：")
 	list := make([]User, 0)
 	users := loadUser()
+	// fmt.Println(users)
 	fmt.Println("==============================")
 	// title := fmt.Sprintf("%5s|%10s|%12s|%20s|%20s|%20s\n", "ID", "Name", "Birthday", "Tel", "Addr", "Desc")
 	// fmt.Println(title)
@@ -274,6 +224,7 @@ func Query() {
 			list = append(list, v)
 		}
 	}
+	// fmt.Println(list)
 	sortKey := InputStr("请输入排序字段(id/name/tel/addr/desc):")
 
 	sort.Slice(list, func(i, j int) bool {
@@ -296,31 +247,4 @@ func Query() {
 		fmt.Println(user)
 	}
 	fmt.Println("==============================")
-}
-
-// 修改密码
-func ModifyPasswd() {
-	password, err := os.ReadFile(passwordFile)
-	if err == nil {
-		// 验证密码
-		fmt.Print("请输入旧密码:")
-		// fmt.Scan(&input)
-		bytes, _ := gopass.GetPasswd()
-		// md5是转换成16个数字，要将数字转换成16进制
-		if string(password) == fmt.Sprintf("%x", md5.Sum(bytes)) {
-			for {
-				fmt.Print("请输入新密码:")
-				bytes, _ = gopass.GetPasswd()
-				if len(bytes) > 0 {
-					break
-				} else {
-					fmt.Println("不能是空密码！")
-				}
-			}
-			os.WriteFile(passwordFile, fmt.Appendf(nil, "%x", md5.Sum(bytes)), os.ModePerm)
-			fmt.Println("[+]密码修改成功")
-		} else {
-			fmt.Println("[-]密码错误")
-		}
-	}
 }

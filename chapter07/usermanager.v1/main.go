@@ -20,8 +20,7 @@ func main() {
 2. 修改用户
 3. 删除用户
 4. 查询用户
-5. 修改密码
-6. 退出
+5. 退出
 ********************`
 
 	// id := 0
@@ -30,8 +29,7 @@ func main() {
 		"2": upkg.Modify,
 		"3": upkg.DeleteUser,
 		"4": upkg.Query,
-		"5": upkg.ModifyPasswd,
-		"6": func() {
+		"5": func() {
 			// time.Sleep(500 * time.Millisecond)
 			// fmt.Println("即将退出")
 			// time.Sleep(2 * time.Second)

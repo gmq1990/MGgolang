@@ -32,7 +32,7 @@ func (es EmailSender) sendAll(tos []string, msg string) error {
 }
 
 type SMSSender struct {
-	SmsApiAddr string
+	SmsAPI string
 }
 
 // 把接收者定义成指针类型，看看有什么变化
@@ -83,24 +83,49 @@ func iInterface() {
 	// 值？不能调用指针接收者的方法
 	// sender = SMSSender{} ❌
 	sender = &SMSSender{"Aggregate"}
-	//  sender.SmsApiAddr ❌
+	//  sender.SmsAPI ❌
 	sender.send("tom", "早上好")
 
 	// 指针？能调用值接收者的方法
 	sender = &EmailSender{"xiaobai@example.com"}
 	// sender.SmptAddr ❌
-	// 值接收者能识别指针，从而使用方法
+	// 值接收者能识别指针，从而指针能使用方法
 	sender.sendAll([]string{"tom", "jerry"}, "早上好")
 	do(sender)
 
 	// WeChatSender只能声明成指针变量
-	sender = &WeChatSender{"imID"}
+	sender = &WeChatSender{"I Am ID"}
 	// sender.ID ❌
 	// interface 赋值给 interface
-	// 后者继承前者
-	// 前者的方法必须在后者中全部实现
+	// var 左边 = 右边
+	// 右边 继承 左边
+	// 左边的范围小，右边的范围大
 	var ssender singleSender = sender
 
 	ssender.send("xiaobai", "你好")
+
+	// interface的类型断言：将interface转为特定类型
+	sender01, ok := ssender.(Sender)
+	fmt.Printf("%T %v\n", sender01, ok) // *main.WeChatSender true
+	sender01.sendAll([]string{"xiaobai", "xiaohei"}, "你好")
+
+	wesender01, ok := ssender.(*WeChatSender)
+	fmt.Printf("%T %v\n", wesender01, ok) // *main.WeChatSender true
+
+	esender01, ok := ssender.(EmailSender)
+	// 此时sender已不再是emailsender
+	fmt.Printf("%T %v\n", esender01, ok) // main.EmailSender false
+	esender02, ok := sender.(EmailSender)
+	fmt.Printf("%T %v\n", esender02, ok) // main.EmailSender false
+
+	// 断言：类型查询
+	switch ssender.(type) {
+	case EmailSender:
+		fmt.Println("emailsender")
+	case *SMSSender:
+		fmt.Println("*smssender")
+	case *WeChatSender:
+		fmt.Println("*wechatsender")
+	}
 
 }

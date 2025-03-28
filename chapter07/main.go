@@ -8,5 +8,7 @@ func main() {
 	// combine()
 	// emptyInterface()
 	// jJson()
-	jsontype()
+	// jsontype()
+	// jsonStruct()
+	rReflect()
 }

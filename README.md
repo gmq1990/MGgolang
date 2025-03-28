@@ -191,7 +191,25 @@ bufio ：以上2者的扩展
 
 是自定义类型，对其他类型的行为的抽象。强调各个类型的行为，对相同行为进行统一。
 
+### <u>*反射*</u>
 
 
 
+### *<u>goroutine</u>*
+
+```
+并发，一个时间点只能有一个例程在跑。
+
+格式：go func()
+
+示例： main函数，为“主例程”。go func()启动的例程，为“工作例程”。
+
+主程序的执行结束时间若比goroutine早，goroutine就自动结束。
+
+可用sync.WaitGroup(计数信号量)来维护执行例程的执行状态。
+
+也可用runtime.GoSched()使例程主动让出CPU。
+
+还可用time.Sleep(time.second)让例程休眠，从而让出CPU。
+```
 

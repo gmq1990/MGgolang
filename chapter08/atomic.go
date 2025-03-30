@@ -4,32 +4,28 @@ import (
 	"fmt"
 	"runtime"
 	"sync"
+	"sync/atomic"
 )
 
-func memAccess() {
-	var counter int
+func aAtomic() {
+	// 原子操作：
+	// 使用int32/int64
+	var counter int32
 	group := &sync.WaitGroup{}
-	lock := &sync.Mutex{} // mutual exclusion。互斥
 
 	incr := func() {
 		defer group.Done()
-
 		for i := 0; i < 100; i++ {
-			lock.Lock()   // 加锁(互斥)
-			counter++     // a1.拿counter(0) a2.counter+1 a3.存counter(1)
-			lock.Unlock() // 释放锁
-
+			// 将+1转为原子操作
+			atomic.AddInt32(&counter, 1)
 			runtime.Gosched()
 		}
-
 	}
 
 	decr := func() {
 		for i := 0; i < 100; i++ {
-			lock.Lock()
-			counter-- // b1.拿counter(0) b2.counter-1 b3.counter(-1)
-			lock.Unlock()
-
+			// 将-1转为原子操作
+			atomic.AddInt32(&counter, -1)
 			runtime.Gosched()
 		}
 		group.Done()

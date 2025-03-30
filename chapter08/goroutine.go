@@ -14,7 +14,7 @@ func PrintChars(n string) {
 	fmt.Println()
 }
 
-func print() {
+func gorountine() {
 	go PrintChars("1")
 	go PrintChars("2")
 

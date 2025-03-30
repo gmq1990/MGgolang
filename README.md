@@ -207,9 +207,28 @@ bufio ：以上2者的扩展
 主程序的执行结束时间若比goroutine早，goroutine就自动结束。
 
 可用sync.WaitGroup(计数信号量)来维护执行例程的执行状态。
-
 也可用runtime.GoSched()使例程主动让出CPU。
-
 还可用time.Sleep(time.second)让例程休眠，从而让出CPU。
+
+锁：
+Lock
+Unlock
+对资源操作的同时获取锁
+获取了 => 操作 => 释放锁
+没获取 => 等待
+
+读写锁：
+lock
+RLock
+
+Unlock
+RUnlock
+n个在写，m个在读
+多个读，不需要锁
+1读 / 写
+RLock => RLock 不阻塞
+RLock => Lock 阻塞 （要使用RUnlock）
+Lock => RLock 阻塞
+Lock => Lock 阻塞 （要使用Unlock）
 ```
 

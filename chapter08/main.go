@@ -1,8 +1,18 @@
 package main
 
 func main() {
-	// print()
+	// gorountine()
 	// waitGroup()
 	// goroutine2()
-	memAccess()
+	// memAccess()
+	// aAtomic()
+	// Channel()
+	// Channel2()
+	// bufferchannel()
+	// rwchannel()
+	// selectcase()
+	// selectcase2()
+	// randomInt()
+	// tTimeout()
+	tTime()
 }

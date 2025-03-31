@@ -14,5 +14,9 @@ func main() {
 	// selectcase2()
 	// randomInt()
 	// tTimeout()
-	tTime()
+	// tTime()
+	// Once()
+	// objpool()
+	// pPool()
+	rRuntime()
 }

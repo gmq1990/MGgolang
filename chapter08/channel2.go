@@ -11,7 +11,6 @@ func PrintChars3(n int, channel chan int) {
 		runtime.Gosched()
 	}
 	channel <- n
-	fmt.Println()
 }
 
 func Channel2() {

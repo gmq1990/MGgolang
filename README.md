@@ -235,3 +235,24 @@ Lock => Lock 阻塞 （要使用Unlock）
 ### <u>*网络编程*</u>
 
 服务器：监听某端口，设置一个ip，等待客户端连接。连接成功后向客户端发送成功确认。
+
+
+
+### *<u>HTTP</u>*
+
+```
+Request: 
+	1: 请求行 \r\n	GET/POST url HTTP/1.0
+	2-n: key: value \r\n 请求头
+	\r\n
+	请求体
+```
+
+```
+Response:
+	1: 响应行 HTTP/1.0 STATUS_CODE STATUS_TEXT
+	2-n: key: value 响应头
+	\r\n
+	响应体
+```
+

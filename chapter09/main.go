@@ -2,6 +2,7 @@ package main
 
 func main() {
 	// goroutine()
-	// httpserver()
-	nNet()
+	// nNet()
+	// server()
+	// client()
 }

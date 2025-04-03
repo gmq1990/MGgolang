@@ -7,7 +7,6 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
-	"time"
 )
 
 var (
@@ -24,7 +23,7 @@ func handle(conn net.Conn) {
 		fmt.Println("Client Closed: ", conn.RemoteAddr())
 	}()
 	fmt.Println("sleep start")
-	time.Sleep(time.Second * 10)
+	// time.Sleep(time.Second * 10)
 	fmt.Println("sleep end")
 
 	// 处理客户端数据
@@ -82,7 +81,7 @@ func init() {
 	file500 = filepath.Join(dirPath, "500.html")
 }
 
-func httpserver() {
+func main() {
 
 	addr := ":9999"
 	listener, err := net.Listen("tcp", addr)

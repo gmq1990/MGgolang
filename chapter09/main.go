@@ -5,4 +5,5 @@ func main() {
 	// nNet()
 	// server()
 	// client()
+	request()
 }
